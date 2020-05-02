@@ -1,0 +1,9 @@
+{
+    "id" : "Debugging",
+    "version" : "0.1.0-SNAPSHOT",
+    "author" : "",
+    "displayName" : "Debugging",
+    "description" : "Convenience tools and helpers for in-game debugging.",
+    "dependencies" : [],
+    "serverSideOnly" : false
+}

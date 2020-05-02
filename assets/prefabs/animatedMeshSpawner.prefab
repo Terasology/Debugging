@@ -1,0 +1,13 @@
+{
+    "parent": "engine:iconItem",
+    "DisplayName": {
+        "name": "Animated Mesh Spawner"
+    },
+    "Item": {
+        "icon": "engine:items#whiteRecipe"
+    },
+    "InteractionTarget": {},
+    "InteractionScreen": {
+        "screen": "Debugging:animatedMeshSpawner"
+    }
+}

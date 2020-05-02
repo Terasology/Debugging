@@ -1,0 +1,13 @@
+{
+    "parent": "engine:iconItem",
+    "DisplayName": {
+        "name": "Benchmark Tool"
+    },
+    "Item": {
+        "icon": "engine:items#whiteRecipe"
+    },
+    "InteractionTarget": {},
+    "InteractionScreen": {
+        "screen": "Debugging:benchmarkScreen"
+    }
+}
