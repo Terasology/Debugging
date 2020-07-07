@@ -146,7 +146,7 @@ public class BenchmarkScreen extends BaseInteractionScreen {
         Vector3i charecterPos = new Vector3i(location);
         Vector3i chunkAboveCharacter = ChunkMath.calcChunkPos(charecterPos);
         chunkAboveCharacter.addY(1);
-        Vector3i chunkRelativePos = ChunkMath.calcBlockPos(charecterPos);
+        Vector3i chunkRelativePos = ChunkMath.calcRelativeBlockPos(charecterPos);
         Vector3i characterChunkOriginPos = new Vector3i(charecterPos);
         characterChunkOriginPos.sub(chunkRelativePos);
 
