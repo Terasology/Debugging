@@ -15,8 +15,9 @@
  */
 package org.terasology.core.debug.benchmark;
 
-import org.terasology.context.Context;
-import org.terasology.world.chunks.ChunkConstants;
+
+import org.terasology.engine.context.Context;
+import org.terasology.engine.world.chunks.Chunks;
 
 /**
  * Benchmark types the user can select and start.
@@ -48,8 +49,8 @@ enum BenchmarkType {
         }
     };
 
-    private static final int BLOCKS_PER_CHUNK = ChunkConstants.CHUNK_SIZE.x * ChunkConstants.CHUNK_SIZE.y
-            * ChunkConstants.CHUNK_SIZE.z;
+    private static final int BLOCKS_PER_CHUNK = Chunks.CHUNK_SIZE.x() * Chunks.CHUNK_SIZE.y()
+            * Chunks.CHUNK_SIZE.z();
 
     private String title;
     private int maxIterations;

@@ -15,20 +15,20 @@
  */
 package org.terasology.core.debug.benchmark;
 
-import org.terasology.context.Context;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.math.ChunkMath;
-import org.terasology.math.Region3i;
-import org.terasology.math.geom.Vector3f;
-import org.terasology.math.geom.Vector3i;
-import org.terasology.registry.In;
-import org.terasology.rendering.nui.BaseInteractionScreen;
+import org.joml.RoundingMode;
+import org.joml.Vector3f;
+import org.joml.Vector3i;
+import org.terasology.engine.context.Context;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.rendering.nui.BaseInteractionScreen;
+import org.terasology.engine.world.block.BlockRegion;
+import org.terasology.engine.world.chunks.Chunks;
 import org.terasology.nui.UIWidget;
 import org.terasology.nui.databinding.Binding;
 import org.terasology.nui.widgets.UIButton;
 import org.terasology.nui.widgets.UIDropdownScrollable;
 import org.terasology.nui.widgets.UIText;
-import org.terasology.world.chunks.ChunkConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -142,17 +142,18 @@ public class BenchmarkScreen extends BaseInteractionScreen {
         getManager().popScreen();
     }
 
-    static Region3i getChunkRegionAbove(Vector3f location) {
-        Vector3i charecterPos = new Vector3i(location);
-        Vector3i chunkAboveCharacter = ChunkMath.calcChunkPos(charecterPos);
-        chunkAboveCharacter.addY(1);
-        Vector3i chunkRelativePos = ChunkMath.calcRelativeBlockPos(charecterPos);
+    static BlockRegion getChunkRegionAbove(Vector3f location) {
+        Vector3i charecterPos = new Vector3i(location, RoundingMode.HALF_UP);
+        Vector3i chunkAboveCharacter = Chunks.toChunkPos(charecterPos);
+        chunkAboveCharacter.add(0, 1, 0);
+        Vector3i chunkRelativePos = Chunks.toRelative(charecterPos);
         Vector3i characterChunkOriginPos = new Vector3i(charecterPos);
         characterChunkOriginPos.sub(chunkRelativePos);
 
         Vector3i chunkAboveOrigin = new Vector3i(characterChunkOriginPos);
-        chunkAboveOrigin.addY(ChunkConstants.CHUNK_SIZE.getY());
-        return ChunkConstants.CHUNK_REGION.move(chunkAboveOrigin);
+        chunkAboveOrigin.add(0, Chunks.CHUNK_SIZE.y(), 0);
+        BlockRegion region = new BlockRegion(Chunks.CHUNK_REGION);
+        return region.translate(chunkAboveOrigin);
     }
 
     @Override
