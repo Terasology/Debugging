@@ -15,22 +15,22 @@
  */
 package org.terasology.core.debug.ui;
 
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.terasology.assets.ResourceUrn;
-import org.terasology.assets.management.AssetManager;
-import org.terasology.entitySystem.entity.EntityManager;
-import org.terasology.entitySystem.entity.EntityRef;
-import org.terasology.entitySystem.prefab.Prefab;
-import org.terasology.logic.characters.CharacterMovementComponent;
-import org.terasology.logic.location.LocationComponent;
-import org.terasology.logic.players.LocalPlayer;
-import org.terasology.math.geom.Quat4f;
-import org.terasology.math.geom.Vector3f;
-import org.terasology.registry.In;
-import org.terasology.rendering.assets.skeletalmesh.SkeletalMesh;
-import org.terasology.rendering.logic.SkeletalMeshComponent;
-import org.terasology.rendering.nui.CoreScreenLayer;
+import org.terasology.engine.entitySystem.entity.EntityManager;
+import org.terasology.engine.entitySystem.entity.EntityRef;
+import org.terasology.engine.entitySystem.prefab.Prefab;
+import org.terasology.engine.logic.characters.CharacterMovementComponent;
+import org.terasology.engine.logic.location.LocationComponent;
+import org.terasology.engine.logic.players.LocalPlayer;
+import org.terasology.engine.registry.In;
+import org.terasology.engine.rendering.assets.skeletalmesh.SkeletalMesh;
+import org.terasology.engine.rendering.logic.SkeletalMeshComponent;
+import org.terasology.engine.rendering.nui.CoreScreenLayer;
+import org.terasology.gestalt.assets.ResourceUrn;
+import org.terasology.gestalt.assets.management.AssetManager;
 import org.terasology.nui.widgets.UIButton;
 import org.terasology.nui.widgets.UIDropdownScrollable;
 import org.terasology.nui.widgets.UISlider;
@@ -71,13 +71,13 @@ public class AnimationScreen extends CoreScreenLayer {
             animationSpeedSlider.setPrecision(1);
         }
         spawnEntityIdButton.subscribe(widget -> {
-            Vector3f localPlayerPosition = localPlayer.getPosition();
-            Vector3f offset = localPlayer.getViewDirection();
-            offset.scale(2.0f);
+            Vector3f localPlayerPosition = localPlayer.getPosition(new org.joml.Vector3f());
+            Vector3f offset = localPlayer.getViewDirection(new Vector3f());
+            offset.normalize(2.0f);
             offset.y = 0;
             localPlayerPosition.add(offset);
 
-            Quat4f localPlayerRotation = localPlayer.getRotation();
+            Quaternionf localPlayerRotation = localPlayer.getRotation(new Quaternionf());
 
             assetManager.getAsset(entityDropdown.getSelection(), Prefab.class)
                     .filter(prefab -> prefab.hasComponent(LocationComponent.class))
